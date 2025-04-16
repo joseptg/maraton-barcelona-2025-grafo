@@ -4,31 +4,17 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 fetch("maraton_barcelona_2025_graph.json")
-  .then((res) => res.json())
+  .then((res) => {
+    console.log("Respuesta del fetch:", res);
+    return res.json();
+  })
   .then((data) => {
-    const cy = cytoscape({
-      container: document.getElementById("cy"),
-      elements: [...data.nodes, ...data.edges],
-      style: [
-        {
-          selector: "node",
-          style: {
-            "background-color": "#0074D9",
-            "label": "data(label)",
-            "width": 6,
-            "height": 6
-          }
-        },
-        {
-          selector: "edge",
-          style: {
-            "line-color": "#AAAAAA",
-            "width": 1
-          }
-        }
-      ],
-      layout: { name: "preset" }
-    });
+    console.log("Datos cargados del JSON:", data);
+    // (resto del código...)
+  })
+  .catch((err) => {
+    console.error("Error al cargar el JSON:", err);
+  });
 
     // Posicionar los nodos
     data.nodes.forEach((n) => {
